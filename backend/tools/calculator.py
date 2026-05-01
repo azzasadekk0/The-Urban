@@ -42,7 +42,7 @@ FORMULAS: dict[str, dict] = {
     },
 }
 
-# ── Detection ─────────────────────────────────────────────────────────────────
+# Detection 
 
 def detect_calculation_type(query: str) -> Optional[str]:
     q = query.lower()
