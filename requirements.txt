@@ -1,0 +1,34 @@
+# ── Web Framework ─────────────────────────────────────────────────────────────
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+httpx==0.27.2
+
+# ── LangChain / LangGraph — pinned to 0.3.x API ───────────────────────────────
+langchain==0.3.25
+langgraph==0.2.73
+langchain-openai==0.2.14
+langchain-community==0.3.24
+langchain-core==0.3.59
+langchain-text-splitters==0.3.8
+
+# ── OpenAI ────────────────────────────────────────────────────────────────────
+openai==1.51.0
+
+# ── Vector Store ──────────────────────────────────────────────────────────────
+chromadb==0.5.15
+
+# ── PDF Extraction ────────────────────────────────────────────────────────────
+PyMuPDF>=1.23.0
+pypdf==4.3.1
+
+# ── Database ──────────────────────────────────────────────────────────────────
+aiosqlite==0.20.0
+
+# ── Utilities ─────────────────────────────────────────────────────────────────
+python-dotenv==1.0.1
+pydantic==2.9.2
+pydantic-settings==2.5.2
+python-multipart==0.0.12
+
+# ── Tunneling (live public URL) ───────────────────────────────────────────────
+pyngrok==7.2.1
