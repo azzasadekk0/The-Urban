@@ -13,12 +13,12 @@ from backend.session_manager import (
 router = APIRouter(prefix="/api/chat", tags=["chat"])
 
 
-# ── Request / Response Models ─────────────────────────────────────────────────
+# Request / Response Models 
 
 class ChatRequest(BaseModel):
     session_id: str | None = None
     message: str
-    language: str = "en"  # preferred UI language (does not restrict answer language)
+    language: str = "en"  
 
 
 class ChatResponse(BaseModel):
@@ -35,7 +35,7 @@ class NewSessionResponse(BaseModel):
     session_id: str
 
 
-# ── Endpoints ─────────────────────────────────────────────────────────────────
+# Endpoints 
 
 @router.post("/session", response_model=NewSessionResponse)
 async def new_session():
@@ -83,7 +83,7 @@ async def chat(req: ChatRequest):
         "agent_thoughts": [],
     }
 
-    # Run LangGraph — run in thread to avoid blocking asyncio event loop
+    # Run LangGraph 
     final_state = await asyncio.get_event_loop().run_in_executor(
         None, urban_graph.invoke, initial_state
     )
