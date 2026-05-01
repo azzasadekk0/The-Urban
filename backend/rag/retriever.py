@@ -2,7 +2,7 @@ from langchain_openai import OpenAIEmbeddings
 from backend.config import settings
 from backend.rag.vector_store import get_or_create_collection, list_indexed_collections
 
-# ── Topic Keywords (Arabic + English) ────────────────────────────────────────
+# Topic Keywords (Arabic + English) 
 TOPIC_KEYWORDS: dict[str, list[str]] = {
     "height": ["ارتفاع", "طابق", "دور", "height", "floor", "storey", "طوابق"],
     "setback": ["تراجع", "ارتداد", "إرتداد", "setback", "حد البناء", "خط التنظيم"],
@@ -47,7 +47,7 @@ def _query_collection(collection_name: str, embedding: list[float], top_k: int) 
             {
                 "text": doc,
                 "metadata": meta,
-                "score": 1.0 - dist,  # convert cosine distance → similarity
+                "score": 1.0 - dist,  
             }
             for doc, meta, dist in zip(
                 results["documents"][0],
@@ -91,7 +91,7 @@ def hierarchical_retrieve(
             c["can_be_suppressed"] = doc_meta.get("can_be_suppressed", False)
         all_chunks.extend(chunks)
 
-    # ── Suppression Logic ─────────────────────────────────────────────────────
+    # Suppression Logic 
     high_priority_topics: set[str] = set()
     for chunk in all_chunks:
         if chunk["priority"] <= 2:
@@ -112,13 +112,10 @@ def hierarchical_retrieve(
                         f"'{law_en}' conflicts with higher priority laws on topics {sorted(overlap)}. "
                         f"Check if it applies based on context_type."
                     )
-                # We do NOT drop the chunk. We pass it to the LLM with the warning.
+                
         active_chunks.append(chunk)
 
-    # Sort: Calculate a priority-weighted score. 
-    # High similarity scores are preserved, but lower priority laws get a small penalty 
-    # so that if two laws are equally relevant, the higher priority law wins.
-    # Penalty: 0.02 per priority tier.
+
     active_chunks.sort(key=lambda c: c["score"] - (c["priority"] * 0.02), reverse=True)
 
     active_laws = list({c["metadata"].get("law_name_en", "") for c in active_chunks})
