@@ -2,7 +2,7 @@ import re
 from typing import Optional
 
 
-# ── Formula Registry ──────────────────────────────────────────────────────────
+# Formula Registry 
 FORMULAS: dict[str, dict] = {
     "max_building_height": {
         "formula": "max_height = street_width × 1.5",
@@ -64,7 +64,7 @@ def extract_numbers(text: str) -> list[float]:
     return [float(n) for n in re.findall(r"\d+(?:\.\d+)?", converted)]
 
 
-# ── Execution ─────────────────────────────────────────────────────────────────
+# Execution 
 
 def run_calculation(calc_type: str, params: dict) -> dict:
     """Execute a registered formula with validated parameters."""
