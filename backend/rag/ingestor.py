@@ -10,7 +10,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from backend.config import settings
 from backend.rag.vector_store import get_or_create_collection
 
-# ── PDF Library Auto-Detection ────────────────────────────────────────────────
+# PDF Library Auto-Detection 
 try:
     import fitz  # PyMuPDF
     _PDF_BACKEND = "pymupdf"
@@ -23,7 +23,7 @@ except ImportError:
         _PDF_BACKEND = "pypdf"
 
 
-# ── Arabic Text Normalization ─────────────────────────────────────────────────
+# Arabic Text Normalization 
 
 def normalize_arabic(text: str) -> str:
     """Reshape and apply BiDi algorithm so Arabic text is stored correctly."""
@@ -34,7 +34,7 @@ def normalize_arabic(text: str) -> str:
         return text
 
 
-# ── PDF Extraction ────────────────────────────────────────────────────────────
+# PDF Extraction 
 
 def extract_pages(pdf_path: Path) -> list[dict]:
     """Extract text from every page. Auto-selects PyMuPDF → pdfplumber → pypdf."""
@@ -68,7 +68,7 @@ def extract_pages(pdf_path: Path) -> list[dict]:
     return pages
 
 
-# ── Chunking ──────────────────────────────────────────────────────────────────
+# Chunking 
 
 def chunk_pages(pages: list[dict], doc_meta: dict) -> list[dict]:
     """Split pages into overlapping chunks, tagging each with metadata."""
@@ -103,7 +103,7 @@ def chunk_pages(pages: list[dict], doc_meta: dict) -> list[dict]:
     return chunks
 
 
-# ── Embedding & Storage ───────────────────────────────────────────────────────
+# Embedding & Storage 
 
 def embed_and_store(chunks: list[dict], collection_name: str) -> int:
     """Embed chunks with OpenAI and upsert into ChromaDB. Returns new chunks added."""
@@ -138,7 +138,7 @@ def embed_and_store(chunks: list[dict], collection_name: str) -> int:
     return len(new_chunks)
 
 
-# ── Public API ────────────────────────────────────────────────────────────────
+# Public API
 
 def ingest_document(doc_meta: dict) -> dict:
     """Full pipeline for a single document: PDF → extract → chunk → embed → store."""
