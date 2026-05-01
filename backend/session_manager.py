@@ -34,7 +34,7 @@ async def _get_db() -> aiosqlite.Connection:
     return db
 
 
-# ── Public API ────────────────────────────────────────────────────────────────
+# Public API 
 
 async def create_session() -> str:
     """Create a new session and return its ID."""
